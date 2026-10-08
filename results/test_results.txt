@@ -1,0 +1,8 @@
+Expected visited points | Actual visited points | Test result
+-------------------------------------------------------------
+(10.0, 10.0) | (10.0, 10.0) | PASS
+(50.0, 50.0) | (50.0, 50.0) | PASS
+(100.0, 100.0) | (100.0, 100.0) | PASS
+(0.0, 0.0) | (0.0, 0.0) | PASS
+
+Overall result: PASS
