@@ -28,34 +28,33 @@ The purpose of this assignment is to demonstrate a structured system-test approa
 
 ## Overview
 
-Assignment 2 provides a Java-based test automation solution for validating the behavior of a robot arm operating within a rectangular work area.
+This project provides a simple Java-based test automation solution for validating the behavior of a robot arm operating within a rectangular work area.
 
-The automation reads:
+The test automation reads:
 
-- a **system input file**, containing:
-  - the rectangular working area
-  - the points that the robot arm is expected to process
-- a **system output file**, containing:
-  - the points that were actually visited by the robot arm
+- A **system input file** containing:
+    - The rectangular working area
+    - The points that the robot arm is expected to process
+- A **system output file** containing:
+    - The points that were actually visited by the robot arm
 
-The automation determines which input points are inside the allowed working area and compares them with the actual points reported by the system.
+The automation determines which input points are within the allowed working area and compares them with the actual points reported by the system.
 
 A `test_results.txt` file is generated with the verification result.
 
-If a requirement is violated, the test fails and an appropriate failure message is printed to the console.
+If any requirement is violated, the test fails and an appropriate failure message is printed to the console.
 
 ---
 
-# Assignment 2 — Requirements Verified
+# System Requirements Verified
 
-The automation verifies the following behavior:
+The automation verifies the following system behavior:
 
 1. The system receives the expected points from the input file.
-2. The robot arm visits only points that are inside the rectangular working area.
-3. The actual visited points correspond to the expected valid points.
-4. Points are visited in the expected order.
-5. Invalid or malformed entries in the system output are detected.
-6. The overall test result is `PASS` only when the required behavior is satisfied.
+2. The robot arm visits only points that are within the rectangular working area.
+3. The actual visited points correspond to the expected valid points and are visited in the expected order.
+4. Invalid or malformed entries in the system output are detected.
+5. The overall test result is `PASS` only when all required behavior is satisfied.
 
 ---
 
@@ -64,11 +63,7 @@ The automation verifies the following behavior:
 ```text
 NFI_Assignment/
 │
-├── README.md
 ├── config.properties
-│
-├── assignment1_home_security/
-│   └── Home_Security_System_Test_Plan_and_Test_Cases.xlsx
 │
 ├── src/
 │   ├── Point.java
@@ -95,13 +90,13 @@ NFI_Assignment/
 
 ---
 
-# Assignment 2 — Java Classes
+# Java Classes
 
 ## `Point.java`
 
 Represents a coordinate used by the robot arm.
 
-Each point contains:
+A point contains:
 
 ```text
 x coordinate
@@ -124,7 +119,7 @@ The rectangle boundaries are calculated from the four rectangle points provided 
 
 It also provides the check used to determine whether a point is inside or on the boundary of the working area.
 
-Conceptually:
+For example:
 
 ```text
 minX <= x <= maxX
@@ -141,10 +136,10 @@ Stores the information parsed from the system input file.
 
 It contains:
 
-- the working-area `Rectangle`
-- the complete list of requested `Point` objects
+- The working-area `Rectangle`
+- The complete list of requested `Point` objects
 
-Points outside the rectangle are intentionally retained because the automation needs to verify that the system does not visit them.
+Points outside the rectangle are intentionally retained because the test needs to verify that the system does not visit them.
 
 ---
 
@@ -164,7 +159,7 @@ Points
 ...
 ```
 
-The parser converts the input data into Java objects used by the verification logic.
+The parser converts the input data into Java objects that can be used by the verification logic.
 
 ---
 
@@ -181,11 +176,11 @@ error
 ()
 ```
 
-are captured separately so they can be reported as system-output failures.
+are captured separately so that they can be reported as system-output failures.
 
-The parser validates the format of the data.
+The parser only validates the format of the data.
 
-Whether a point is allowed within the working area is checked by the verification logic.
+Whether a point is allowed inside the working area is checked by the verification logic.
 
 ---
 
@@ -195,8 +190,8 @@ Stores the result of the system verification.
 
 It contains:
 
-- the overall PASS/FAIL status
-- the failure messages detected during verification
+- Overall PASS/FAIL status
+- Failure messages detected during verification
 
 This allows all detected problems to be reported instead of stopping after the first failure.
 
@@ -212,11 +207,11 @@ It then verifies the actual system output.
 
 Checks include:
 
-- actual points are inside the working area
-- expected and actual numbers of visited points match
-- points are visited in the expected order
-- expected and actual coordinates match
-- invalid system-output entries are detected
+- Actual points are inside the working area
+- Expected and actual numbers of visited points match
+- Points are visited in the expected order
+- Expected and actual coordinates match
+- Invalid system-output entries are detected
 
 Any violation results in a test failure.
 
@@ -253,15 +248,15 @@ Loads the test configuration from:
 config.properties
 ```
 
-The input file, actual system output file, and result file locations are kept outside the Java source code.
+The input file, actual system output file, and result file locations are therefore kept outside the Java source code.
 
-This allows another set of system input and output files to be tested without modifying the Java implementation.
+This allows another set of system input and output files to be tested without modifying or recompiling the Java implementation.
 
 ---
 
 ## `RobotArmTestRunner.java`
 
-This is the main executable class for Assignment 2.
+This is the main executable class for the test automation.
 
 It coordinates the complete test flow:
 
@@ -287,7 +282,7 @@ Run this class to execute the system test.
 
 # Configuration
 
-The files used for an Assignment 2 test execution are configured in:
+The files used for a test execution are configured in:
 
 ```text
 config.properties
@@ -303,7 +298,7 @@ test.result.file=results/test_results.txt
 
 The Java source code does not contain assumptions about the actual filename.
 
-The input and output files can therefore have different names.
+Therefore the input and output files may have different names.
 
 ---
 
@@ -335,7 +330,7 @@ The same automation will parse the new rectangle and points and perform the veri
 
 # Example PASS Scenario
 
-Example input:
+Input:
 
 ```text
 Rectangle
@@ -389,12 +384,12 @@ Overall result: PASS
 
 The automation reports a failure when, for example:
 
-- the system visits a point outside the rectangle
-- an expected valid point is not visited
-- an unexpected point is visited
-- points are visited in the wrong order
-- the number of actual and expected visited points differs
-- the system output contains malformed data
+- The system visits a point outside the rectangle
+- An expected valid point is not visited
+- An unexpected point is visited
+- Points are visited in the wrong order
+- The number of actual and expected visited points differs
+- The system output contains malformed data
 
 Example console messages:
 
@@ -410,12 +405,16 @@ FAIL: Invalid output from system: error
 
 ---
 
-# How to Run Assignment 2 in IntelliJ IDEA
+# How to Run in IntelliJ IDEA
 
 1. Open the project in IntelliJ IDEA.
+
 2. Make sure the Java source files under `src` are recognized as source files.
+
 3. Verify that `config.properties` is located in the project root.
-4. Verify that the paths configured in `config.properties` point to existing input and output files.
+
+4. Verify that the paths configured in `config.properties` point to existing files.
+
 5. Open:
 
 ```text
@@ -424,9 +423,7 @@ RobotArmTestRunner.java
 
 6. Run the `main()` method.
 
-The IntelliJ working directory should be the project root.
-
-Example:
+The IntelliJ working directory should be the project root, for example:
 
 ```text
 /Users/<user>/JavaProjects/NFI_Assignment
@@ -434,8 +431,8 @@ Example:
 
 After execution:
 
-- PASS/FAIL information is displayed in the IntelliJ console
-- detailed results are written to:
+- PASS/FAIL information is displayed in the IntelliJ console.
+- Detailed results are written to:
 
 ```text
 results/test_results.txt
@@ -445,7 +442,7 @@ results/test_results.txt
 
 # Design Approach
 
-The Assignment 2 implementation intentionally keeps the test automation simple and easy to understand.
+The implementation intentionally keeps the test automation simple.
 
 Responsibilities are separated into:
 
@@ -459,10 +456,4 @@ Configuration
 
 The test data and filenames are not hardcoded in the Java implementation.
 
-This makes the automation reusable for:
-
-- different rectangles
-- different sets of input points
-- different system-output files
-
-while keeping the solution straightforward and maintainable.
+This makes the automation reusable for different rectangles, different sets of points, and different system-output files while keeping the solution easy to understand and maintain.
